@@ -2,24 +2,19 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404, render_to_response
 from fm.models import Document
-from django.forms.models import modelform_factory, modelform_factory
 from django.template import RequestContext
 from fm.forms import DocumentForm
 from datetime import datetime 
 from django.forms.util import ErrorList
 import os
 from django.conf import settings
-import StringIO
 
 def index(request):
+    """Will eventually contain search UI"""
     return HttpResponse('index')
 
-def list(request):
-    latest_document_list = Document.objects.order_by('-date_uploaded')[:5]
-    context = {'latest_document_list': latest_document_list}
-    return render(request, 'fm/list.html', context)
-
 def manage_document(request):
+    """This method handles the logic of the file upload form"""
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid() and file_does_not_exist(request, form):
@@ -52,10 +47,12 @@ def file_does_not_exist(request, form):
         return True
 
 def detail(request, document_id):
+    """Returns document details and download link"""
     document = get_object_or_404(Document, pk=document_id)
     return render(request, 'fm/detail.html', {'document': document})
 
 def download(request, document_id):
+    """This method returns the file as an attachment"""
     document = get_object_or_404(Document, pk=document_id)
     filename = os.path.join(settings.MEDIA_ROOT ,document.document_file.name)
     if not os.path.isfile(filename):
