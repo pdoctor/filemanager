@@ -7,6 +7,7 @@ from django.forms import ModelForm
 class Document(models.Model):
     name = models.CharField(max_length=200, unique=True)
     description = models.CharField(max_length=2000)
+    content_type = models.CharField(max_length=100)
     date_created = models.CharField(max_length=10)
     date_uploaded = models.DateTimeField(default=datetime.datetime.utcnow())
     document_file = models.FileField(upload_to='filetest/%Y/%m/%d')

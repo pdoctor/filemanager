@@ -1,2 +1,14 @@
-<h1>success</h1>
-{{ document.id }}
+<html>
+<body>
+<h1>Details for {{ document.name}}</h1>
+<div>Description:</div>
+<div>{{document.description}}</div>
+<div>Created On:</div>
+<div>{{document.date_created}}</div>
+<div>
+	<form action="{% url 'filemanager:download' document.id %}" method="post">{% csrf_token %}
+		<input type="submit" value="Download" />
+	</form>
+</div>
+</body>
+</html>

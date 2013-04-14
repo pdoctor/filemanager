@@ -14,11 +14,6 @@
 <form action="" method="post" enctype="multipart/form-data">
 	{% csrf_token %}
     <p>{{ form.non_field_errors }}</p>
-    <p>{{ form.doc_name.label_tag }}</p>
-    <p>
-    {{ form.doc_name.errors }}
-    {{ form.doc_name }}
-    </p>
     <p>{{ form.doc_description.label_tag }}</p>
     <p>
     {{ form.doc_description.errors }}
