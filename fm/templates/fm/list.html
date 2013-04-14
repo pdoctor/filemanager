@@ -1,0 +1,9 @@
+{% if latest_document_list %}
+    <ul>
+    {% for doc in latest_document_list %}
+        <li><a href="{% url 'filemanager:detail' doc.id %}">{{ doc.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No docs are available.</p>
+{% endif %}

@@ -1,0 +1,39 @@
+<head>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/smoothness/jquery-ui.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <script>
+    $(function() {
+        $( "#{{ form.doc_date_created.auto_id }}" ).datepicker({ dateFormat: 'yy/mm/dd' });
+    });
+    </script>
+</head>
+<body>
+<h1>Upload new document</h1>
+
+<form action="" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+    <p>{{ form.non_field_errors }}</p>
+    <p>{{ form.doc_name.label_tag }}</p>
+    <p>
+    {{ form.doc_name.errors }}
+    {{ form.doc_name }}
+    </p>
+    <p>{{ form.doc_description.label_tag }}</p>
+    <p>
+    {{ form.doc_description.errors }}
+    {{ form.doc_description }}
+    </p>
+    <p>{{ form.doc_date_created.label_tag }}</p>
+    <p>
+    {{ form.doc_date_created.errors }}
+    {{ form.doc_date_created }}
+    </p>
+    <p>{{ form.docfile.label_tag }}</p>
+    <p>
+    {{ form.docfile.errors }}
+    {{ form.docfile }}
+    </p>    
+    <input type="submit" value="Submit">
+</form>
+</body>
