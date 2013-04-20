@@ -70,4 +70,3 @@ def read_in_chunks(file_object, chunk_size=65536):
         if not data:
             break
         yield data
-
