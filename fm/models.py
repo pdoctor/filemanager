@@ -1,8 +1,7 @@
 from django.db import models
 import datetime
-from django.utils import timezone
 from django.contrib.auth.models import User
-from django.forms import ModelForm
+
 
 class Document(models.Model):
     name = models.CharField(max_length=200, unique=True)
@@ -16,6 +15,7 @@ class Document(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Event(models.Model):
     event_name = models.CharField(max_length=200, unique=True)
     event_start_date = models.DateTimeField()
@@ -24,7 +24,8 @@ class Event(models.Model):
     event_participants = models.CharField(max_length=2000)
 
     def __unicode__(self):
-        return self.event_name        
+        return self.event_name
+
 
 class Tag(models.Model):
     tag_name = models.CharField(max_length=200, unique=True)
@@ -32,6 +33,7 @@ class Tag(models.Model):
 
     def __unicode__(self):
         return self.tag_name
+
 
 class DocumentTag(models.Model):
     document_ref = models.ForeignKey(Document)

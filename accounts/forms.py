@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from datetime import date
-from accounts.models import AccountType
+from accounts.models import AccountType, Account
+import dateutil.parser
+
 
 class AccountForm(forms.Form):
     account_name = forms.CharField(max_length=200, label='Account Name')
@@ -24,8 +25,38 @@ class AccountForm(forms.Form):
     has_recurring_activity = forms.BooleanField(label='Account has recurring activity', required=False)
     is_active = forms.BooleanField(label='Account is active', required=False) 
     types = map(lambda x: (x.id, x.account_type_name), AccountType.objects.all())
-    account_type_ref = forms.ChoiceField(choices=types, widget = forms.Select(), label='Account Type')  
+    account_type_ref = forms.ChoiceField(choices=types, widget=forms.Select(), label='Account Type')
     tag = forms.CharField(max_length=200, label='Tag')
     tag_description = forms.CharField(max_length=2000, label='Tag Description', widget=forms.Textarea)
+
+    def to_account_model(self, account_type, new_tag):
+        date_opened = dateutil.parser.parse(self.date_opened)
+        date_closed = dateutil.parser.parse(self.date_closed)
+        new_account = Account(account_name=self.account_name,
+                              account_number=self.account_number,
+                              company=self.company,
+                              description=self.description,
+                              website=self.website,
+                              is_auto_payment=self.is_auto_payment or False,
+                              auto_payment_method=self.auto_payment_method,
+                              year_opened=date_opened.year,
+                              month_opened=date_opened.month,
+                              day_opened=date_opened.day,
+                              year_closed=date_closed.year,
+                              month_closed=date_closed.month,
+                              day_closed=date_closed.day,
+                              pin_number=self.pin_number,
+                              username=self.username,
+                              password=self.password,
+                              rewards_number=self.rewards_number,
+                              name_on_the_account=self.name_on_the_account,
+                              address_on_the_account=self.address_on_the_account,
+                              phone_on_the_account=self.phone_on_the_account,
+                              special_phrase_on_the_account=self.special_phrase_on_the_account,
+                              has_recurring_activity=self.has_recurring_activity or False,
+                              is_active=self.is_active or False,
+                              account_type_ref=account_type,
+                              tag_ref=new_tag)
+        return new_account
 
 

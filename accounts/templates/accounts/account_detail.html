@@ -1,6 +1,18 @@
-<html>
-<body>
+{% extends "shared/base.html" %}
+{% block page_content %}
+
 <h1>Success</h1>
 
-</body>
-</html>
+<form action="" method="post">
+	{% csrf_token %}
+    <p>{{ form.non_field_errors }}</p>
+    {% for field in form %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }}: {{ field }}
+        </div>
+    {% endfor %}
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}

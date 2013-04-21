@@ -7,9 +7,9 @@ urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
 
     # ex: /accounts/5/
-    url(r'^accounts/(?P<account_id>\d+)/$', views.account_detail, name='account_detail'),    
+    url(r'^(?P<account_id>\d+)/$', views.account_detail, name='account_detail'),
 
     # ex: /accounts/5/
-    url(r'^accounts/new/$', views.add_account, name='account_add'),    
+    url(r'^new/$', views.add_account, name='account_add'),
 
  )

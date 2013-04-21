@@ -1,11 +1,13 @@
 from django.db import models
 
+
 class AccountType(models.Model):
     account_type_name = models.CharField(max_length=200, unique=True)
 
     def __unicode__(self):
         return self.account_type_name
-        
+
+
 class Account(models.Model):
     account_name = models.CharField(max_length=200, unique=True)
     account_number = models.CharField(max_length=200)
