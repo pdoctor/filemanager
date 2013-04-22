@@ -2,6 +2,7 @@
 from django import forms
 from accounts.models import AccountType, Account
 import dateutil.parser
+from django.forms.models import model_to_dict
 
 
 class AccountForm(forms.Form):
@@ -28,6 +29,20 @@ class AccountForm(forms.Form):
     account_type_ref = forms.ChoiceField(choices=types, widget=forms.Select(), label='Account Type')
     tag = forms.CharField(max_length=200, label='Tag')
     tag_description = forms.CharField(max_length=2000, label='Tag Description', widget=forms.Textarea)
+
+    @staticmethod
+    def get_AccountForm(account):
+        model_dict = model_to_dict(account, fields=[field.name for field in account._meta.fields],
+                                   exclude=['account_type_ref', 'tag_ref'])
+        model_dict['tag'] = account.tag_ref.tag_name
+        model_dict['tag_description'] = account.tag_ref.tag_description
+
+        model_dict['account_type_ref'] = account.account_type_ref.id
+
+        form = AccountForm(model_dict)
+
+        return form
+
 
     def to_account_model(self, account_type, new_tag):
         date_opened = dateutil.parser.parse(self.date_opened)

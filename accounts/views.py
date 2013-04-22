@@ -6,8 +6,8 @@ from django.template import RequestContext
 from django.db import transaction
 from accounts.forms import AccountForm, AccountType
 from fm.models import Tag
-import dateutil.parser
 from django.forms.models import model_to_dict
+
 
 def index(request):
     account_list = Account.objects.order_by('account_name')
@@ -17,15 +17,7 @@ def index(request):
 def account_detail(request, account_id):
     """Returns account details"""
     account = Account.objects.get(id=account_id)
-    model_dict = model_to_dict(account, fields=[field.name for field in account._meta.fields],
-                               exclude=['account_type_ref', 'tag_ref'])
-    model_dict['tag'] = account.tag_ref.tag_name
-    model_dict['tag_description'] = account.tag_ref.tag_description
-
-    form = AccountForm(model_dict)
-    # todo: actually set value of account type to avoid form validation error
-    form.initial['account_type_ref'] = account.account_type_ref.account_type_name
-
+    form = AccountForm.get_AccountForm(account)
 
     return render_to_response("accounts/account_detail.html", {
         "form": form,
