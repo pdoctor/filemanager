@@ -84,7 +84,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '4hh%g-g)0ri!7-x=a4@@4ie_!s9e1+6r=f%519pli4d*hig$1b'
+SECRET_KEY = filemanager.secrets.secret_key
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
