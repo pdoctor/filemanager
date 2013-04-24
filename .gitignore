@@ -1,2 +1,2 @@
-filemanager/settings.py
+filemanager/secrets.py
 *.pyc
