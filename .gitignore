@@ -1,2 +1,4 @@
 filemanager/secrets.py
 *.pyc
+*.py~
+
