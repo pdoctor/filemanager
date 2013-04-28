@@ -6,7 +6,8 @@ from django.forms.models import model_to_dict
 
 
 class AccountForm(forms.Form):
-    account_name = forms.CharField(max_length=200, label='Account Name', widget=forms.TextInput(attrs={'class': 'required', 'minLength': 2 }))
+    account_name = forms.CharField(max_length=200, label='Account Name',
+                                   widget=forms.TextInput(attrs={'class': 'required', 'minLength': 2}))
     account_number = forms.CharField(max_length=200, label='Account Number', required=False)
     company = forms.CharField(max_length=200, label='Company')
     date_opened = forms.CharField(label='Account Opened On', required=False)
@@ -24,7 +25,7 @@ class AccountForm(forms.Form):
     phone_on_the_account = forms.CharField(max_length=30, label='Phone on Account', required=False)
     special_phrase_on_the_account = forms.CharField(max_length=200, label='Special phrase on account', required=False)
     has_recurring_activity = forms.BooleanField(label='Account has recurring activity', required=False)
-    is_active = forms.BooleanField(label='Account is active', required=False) 
+    is_active = forms.BooleanField(label='Account is active', required=False)
     types = map(lambda x: (x.id, x.account_type_name), AccountType.objects.all())
     account_type_ref = forms.ChoiceField(choices=types, widget=forms.Select(), label='Account Type')
     tag = forms.CharField(max_length=200, label='Tag')
@@ -43,35 +44,35 @@ class AccountForm(forms.Form):
 
         return form
 
+    def to_account_model(self, account_type, new_tag, account):
+        date_opened = dateutil.parser.parse(self.cleaned_data['date_opened'])
+        date_closed = dateutil.parser.parse(self.cleaned_data['date_closed'])
+        account.account_name = self.cleaned_data['account_name']
+        account.account_number = self.cleaned_data['account_number']
+        account.company = self.cleaned_data['company']
+        account.description = self.cleaned_data['description']
+        account.website = self.cleaned_data['website']
+        account.is_auto_payment = self.cleaned_data['is_auto_payment'] or False
+        account.auto_payment_method = self.cleaned_data['auto_payment_method']
+        account.year_opened = date_opened.year
+        account.month_opened = date_opened.month
+        account.day_opened = date_opened.day
+        account.year_closed = date_closed.year
+        account.month_closed = date_closed.month
+        account.day_closed = date_closed.day
+        account.pin_number = self.cleaned_data['pin_number']
+        account.username = self.cleaned_data['username']
+        account.password = self.cleaned_data['password']
+        account.rewards_number = self.cleaned_data['rewards_number']
+        account.name_on_the_account = self.cleaned_data['name_on_the_account']
+        account.address_on_the_account = self.cleaned_data['address_on_the_account']
+        account.phone_on_the_account = self.cleaned_data['phone_on_the_account']
+        account.special_phrase_on_the_account = self.cleaned_data['special_phrase_on_the_account']
+        account.has_recurring_activity = self.cleaned_data['has_recurring_activity'] or False
+        account.is_active = self.cleaned_data['is_active'] or False
+        account.account_type_ref = account_type
+        account.tag_ref = new_tag
 
-    def to_account_model(self, account_type, new_tag):
-        date_opened = dateutil.parser.parse(self.date_opened)
-        date_closed = dateutil.parser.parse(self.date_closed)
-        new_account = Account(account_name=self.account_name,
-                              account_number=self.account_number,
-                              company=self.company,
-                              description=self.description,
-                              website=self.website,
-                              is_auto_payment=self.is_auto_payment or False,
-                              auto_payment_method=self.auto_payment_method,
-                              year_opened=date_opened.year,
-                              month_opened=date_opened.month,
-                              day_opened=date_opened.day,
-                              year_closed=date_closed.year,
-                              month_closed=date_closed.month,
-                              day_closed=date_closed.day,
-                              pin_number=self.pin_number,
-                              username=self.username,
-                              password=self.password,
-                              rewards_number=self.rewards_number,
-                              name_on_the_account=self.name_on_the_account,
-                              address_on_the_account=self.address_on_the_account,
-                              phone_on_the_account=self.phone_on_the_account,
-                              special_phrase_on_the_account=self.special_phrase_on_the_account,
-                              has_recurring_activity=self.has_recurring_activity or False,
-                              is_active=self.is_active or False,
-                              account_type_ref=account_type,
-                              tag_ref=new_tag)
-        return new_account
+        return account
 
 
