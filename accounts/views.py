@@ -43,6 +43,7 @@ def add_account(request):
             return HttpResponseRedirect(reverse('accounts:account_detail', args=(new_account.id,)))
     else:
         form = AccountForm()
+
     return render_to_response("accounts/add_account.html", {
         "form": form,
     },

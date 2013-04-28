@@ -6,7 +6,7 @@ from django.forms.models import model_to_dict
 
 
 class AccountForm(forms.Form):
-    account_name = forms.CharField(max_length=200, label='Account Name')
+    account_name = forms.CharField(max_length=200, label='Account Name', widget=forms.TextInput(attrs={'class': 'required', 'minLength': 2 }))
     account_number = forms.CharField(max_length=200, label='Account Number', required=False)
     company = forms.CharField(max_length=200, label='Company')
     date_opened = forms.CharField(label='Account Opened On', required=False)

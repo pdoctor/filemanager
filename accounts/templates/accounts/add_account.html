@@ -1,24 +1,42 @@
 {% extends "shared/base.html" %}
 {%  block page_js %}
+    {% load staticfiles %}
+    <script src="{% static "accounts/jquery.validate.js" %}"></script>
+
     <script>
     $(function() {
         $( "#{{ form.date_opened.auto_id }}" ).datepicker({ dateFormat: 'yy/mm/dd' });
         $( "#{{ form.date_closed.auto_id }}" ).datepicker({ dateFormat: 'yy/mm/dd' });
     });
     </script>
+    <script type="text/javascript" language="javascript">
+
+    $(document).ready(function () {
+        $("#newAccountForm").validate();
+    });
+
+    </script>
 {%  endblock %}
+{% block page_css %}
+    {% load staticfiles %}
+    <LINK href="{% static "accounts/accounts.css" %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
 {% block page_content %}
+<div class="body">
 <h1>Add new account</h1>
 
-<form action="" method="post">
+<form action="" method="post" id="newAccountForm">
 	{% csrf_token %}
     <p>{{ form.non_field_errors }}</p>
     {% for field in form %}
         <div class="fieldWrapper">
-            {{ field.errors }}
-            {{ field.label_tag }}: {{ field }}
+            {{ field.label_tag }}: {{ field.errors }} <br/> {{ field }}
         </div>
     {% endfor %}
-    <input type="submit" value="Submit">
+    <div class="nonFormField">
+        <input id="submitAccount" type="submit" value="Submit">
+    </div>
 </form>
+</div>
 {% endblock %}

@@ -1,6 +1,11 @@
 {% extends "shared/base.html" %}
-{% block page_content %}
+{% block page_css %}
+    {% load staticfiles %}
+    <LINK href="{% static "accounts/accounts.css" %}" rel="stylesheet" type="text/css">
+{% endblock %}
 
+{% block page_content %}
+<div class="body">
 <h1>Success</h1>
 
 <form action="" method="post">
@@ -9,10 +14,11 @@
     {% for field in form %}
         <div class="fieldWrapper">
             {{ field.errors }}
-            {{ field.label_tag }}: {{ field }}
+            {{ field.label_tag }}:<br/> {{ field }}
         </div>
     {% endfor %}
     <input type="submit" value="Submit">
 </form>
 
 {% endblock %}
+</div>
