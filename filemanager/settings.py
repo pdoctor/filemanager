@@ -53,6 +53,17 @@ USE_TZ = True
 # Example: "/var/www/example.com/media/"
 MEDIA_ROOT = filemanager.secrets.media_root
 
+# Context processors
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages"
+)
+
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
@@ -127,6 +138,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'fm',
     'accounts',
+    'users',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -157,3 +169,6 @@ LOGGING = {
         },
     }
 }
+
+# pages requiring authentication will redirect to this url
+LOGIN_URL = '/users/login/'

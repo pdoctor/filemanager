@@ -7,9 +7,14 @@
     {%  block page_js %} {%  endblock %}
     {%  block page_css %} {%  endblock %}
 
+    {% load staticfiles %}
+    <LINK href="{% static "shared/base.css" %}" rel="stylesheet" type="text/css">
     <title>File Manager</title>
 </head>
 <body>
+{% if user.is_authenticated %}
+    <div class="logout"><a href={% url 'users:logout_user' %}>Logout</a></div>
+{% endif %}
 {% block page_content %}{% endblock %}
 </body>
 </html>

@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404, render_to_response
@@ -14,7 +15,7 @@ def index(request):
     """Will eventually contain search UI"""
     return HttpResponse('index')
 
-
+@login_required
 def manage_document(request):
     """This method handles the logic of the file upload form"""
     if request.method == 'POST':
