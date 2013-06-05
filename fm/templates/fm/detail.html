@@ -1,5 +1,5 @@
-<html>
-<body>
+{% extends "shared/base.html" %}
+{% block page_content %}
 <h1>Details for {{ document.name}}</h1>
 <div>Description:</div>
 <div>{{document.description}}</div>
@@ -10,5 +10,4 @@
 		<input type="submit" value="Download" />
 	</form>
 </div>
-</body>
-</html>
+{% endblock %}

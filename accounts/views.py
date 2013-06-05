@@ -53,6 +53,7 @@ def add_account(request):
     },
         context_instance=RequestContext(request))
 
+
 @transaction.commit_on_success
 def handle_account_save(request, form, account):
     """ Handles the db logic to update tag, account type, and account, used by both add and update account

@@ -13,7 +13,9 @@ from django.conf import settings
 
 def index(request):
     """Will eventually contain search UI"""
-    return HttpResponse('index')
+    latest_document_list = Document.objects.order_by('date_created')[:10]
+    return render_to_response('fm/list.html', {"latest_document_list": latest_document_list})
+
 
 @login_required
 def manage_document(request):

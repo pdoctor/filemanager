@@ -8,13 +8,24 @@
     {%  block page_css %} {%  endblock %}
 
     {% load staticfiles %}
+    <LINK href="{% static "fm/fm.css" %}" rel="stylesheet" type="text/css">
     <LINK href="{% static "shared/base.css" %}" rel="stylesheet" type="text/css">
+    <LINK href="{% static "shared/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css">
     <title>File Manager</title>
 </head>
 <body>
+<div class="menuHeader">File Manager</div>
+<div class="navMenu">
+    <ul class="nav nav-tabs">
+        <li><a href={% url 'filemanager:index' %}>Documents</a></li>
+        <li><a href={% url 'accounts:index' %}>Accounts</a></li>
+    </ul>
+</div>
 {% if user.is_authenticated %}
     <div class="logout"><a href={% url 'users:logout_user' %}>Logout</a></div>
 {% endif %}
+<div class="pageContent">
 {% block page_content %}{% endblock %}
+</div>
 </body>
 </html>

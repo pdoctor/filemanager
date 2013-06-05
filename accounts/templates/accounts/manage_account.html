@@ -1,7 +1,6 @@
 {% extends "shared/base.html" %}
 {%  block page_js %}
     {% load staticfiles %}
-    <script src="{% static "accounts/jquery.validate.js" %}"></script>
 
     <script>
     $(function() {
@@ -10,10 +9,6 @@
     });
     </script>
     <script type="text/javascript" language="javascript">
-
-    $(document).ready(function () {
-        $("#newAccountForm").validate();
-    });
 
     </script>
 {%  endblock %}

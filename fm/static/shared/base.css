@@ -1,3 +1,16 @@
 div.logout {
     float: right;
+    padding: .5em;
 }
+
+.menuHeader {
+    padding: .5em;
+    text-align: center;
+    font-size: 3em;
+
+}
+
+.pageContent {
+    padding: 1em;
+}
+

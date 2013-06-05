@@ -1,3 +1,6 @@
+{% extends "shared/base.html" %}
+{% block page_content %}
+    <h3>Documents</h3>
 {% if latest_document_list %}
     <ul>
     {% for doc in latest_document_list %}
@@ -7,3 +10,7 @@
 {% else %}
     <p>No docs are available.</p>
 {% endif %}
+
+    <a href="{% url 'filemanager:manage_document' %}">Add new document</a>
+
+{% endblock %}
